@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <style>
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+    <div class="navbar">     
+        <img class="logo-img" src="img/天财logo.png" alt="">
+        <div class="school">代码查重系统</div>
+        <div class="item">
+            <a class="a" href="">联系我</a>
+        </div>
+        <div class="item">
+            <a class="a" href="">特点</a>
+        </div>
+        <div class="item">
+            <a class="a" href="">简介</a>
+        </div>    
+    </div>
+    <div class="main">
+        <div class="abstract">
+            <h3>请上传需要查重的所有文件</h3>
+            <div class="input_ctrl" style="height:0px;margin:0px;">    
+                <input type="file" id="file" name="file" multiple="multiple" class="upload-files" style="opacity:0;height:0px;">
+            </div>
+            
+            <div class="input_ctrl">
+                <button class="btn select-files" onclick="select_click()">选择文件</button>
+            </div>
+            <div class="input_ctrl">
+                <div class="show"></div>
+            </div>
+
+            <h3>请为该次作业设置一个名字</h3>
+            
+            <div class="input_ctrl">
+                <input type="text" id="code-id" value="">
+            </div>
+
+            <div class="input_ctrl">
+                <button class="btn" onclick="upload_xhr2()">点击上传</button>
+            </div>
+            <div class="input_ctrl">
+                <button class="btn">开始检测</button>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <script src="index.js"></script>
+</body>
+</html>
+<script>
+    $(document).ready(function()
+    {
+        $(".upload-files").change(function()
+        {
+            var info = "";
+            var files = document.getElementById('file').files;
+            for(i = 0; i < files.length; i++){      
+                info += files[i]['name'] + "\n";
+            }
+            //var info = files[0]['name'] + "\n" + files[1]['name'];
+            //console.log(info);
+
+            var arrs=$(this).val().split('\\');
+            var filename=arrs[arrs.length-1];
+            $(".show").html(info);
+        });
+    });
+
+    function select_click(){
+        var upload_input = document.getElementById('file');
+        upload_input.click();
+    };
+
+    function upload_xhr2(){    
+        var xhr = new XMLHttpRequest();//第一步    
+        //定义表单变量    
+        var files = document.getElementById('file').files; 
+        
+        var code_id = document.getElementById('code-id').value;
+        if (files.length < 1) {
+            alert("未选择文件");
+            return;
+        }
+        if (code_id == "") {
+            alert("该次作业未命名未命名");
+            return; 
+        }
+            
+        //console.log(file.length);    
+        //新建一个FormData对象    
+        var formData = new FormData(); //++++++++++
+        formData.append("code_id", code_id)    
+        //追加文件数据    
+        for(i = 0; i < files.length; i++){      
+            formData.append("file["+i+"]", file[i]); //++++++++++    
+        }     
+        //formData.append("file", file[0]); //++++++++++    
+            
+        //post方式    
+        xhr.open('POST', 'http://127.0.0.1:8085/upload'); //第二步骤    
+        //发送请求    
+        xhr.send(formData);  //第三步骤    
+        //ajax返回    
+        xhr.onreadystatechange = function(){ //第四步    
+            if ( xhr.readyState == 4 && xhr.status == 200 ) {
+                if (xhr.responseText == 'succ') {
+                    alert('已成功上传所选文件，可继续上传或点击”开始检测“进行查重');
+                }                    
+            }    
+        };    
+        //设置超时时间    
+        xhr.timeout = 10000;    
+        xhr.ontimeout = function(event){    
+    　　　　alert('请求超时！');    
+    　　}     
+    };
+</script>
