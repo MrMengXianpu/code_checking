@@ -1,0 +1,133 @@
+html,body {
+    margin: 0px;
+    font: helvetica;
+    height: 100%;
+}
+
+.navbar {
+    height: 60px;
+    /* background-color: #114085; */
+    background-color: white;
+    margin: 0 auto;
+    clear: both;
+    overflow:hidden;
+}
+
+.logo-img {
+    position: relative;
+    top: 10%;
+    left: 50px;
+    height: 80%;
+    width: auto;
+    float: left;
+}
+
+.school {
+    position: relative;
+    top: 25%;
+    left: 60px;
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    color: slategray;
+}
+
+.item {
+    position: relative;
+    top: 30%;
+    right: 50px;
+    margin: auto 40px;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    /* color: slategray; */
+}
+
+.a {
+    text-decoration: none;
+}
+
+.a:visited {
+    color: darkgrey;   
+    text-decoration: none;
+}
+
+.a:hover {
+    color: #114085;
+    text-decoration: none;
+}
+
+.main {
+    /* float: left; */
+    /* text-align: center; */
+    height: 100%;
+    width: 100%;
+    /* background-color: #292929; */
+    background-color: #114085;
+    overflow: hidden;
+}
+
+.abstract {
+    text-align: center;
+    position: relative;
+    height: 550px;
+    width: 500px;
+    margin: 0px;
+    display:inline-block;
+    left: 100px;
+    top: 5%;
+    background-color: white;
+}
+
+.btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-sizing: border-box;
+    text-align: center;
+    /* font-size: 1.4em; */
+    height: 40px;
+    width: 100%;
+    border-radius: 4px;
+    border:1px solid #c8cccf;
+    color: white;
+    background-color: #114085;
+    outline: none;
+}
+
+.btn:active {
+    background-color: #062047; 
+}
+
+.input_ctrl {
+    width: 80%;
+    margin: 20px auto;
+    position: relative;
+}
+
+.show {
+    height:120px;
+    overflow-y:auto;
+    border:1px solid #114085;
+    border-radius: 4px;
+}
+
+input[type="text"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 20px;
+    height: 40px;
+    width: 100%;
+    border-radius: 4px;
+    border:1px solid #114085;
+    color: #6a6f77;
+}
+
+.result {
+    position: relative;
+    left: 200px;
+    display:inline-block;
+    background-color: white;
+}
+
