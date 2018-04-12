@@ -33,10 +33,11 @@
             </div>
             
             <div class="input_ctrl">
-                <button class="btn select-files" onclick="select_click()">选择文件</button>
-            </div>
-            <div class="input_ctrl">
                 <div class="show"></div>
+            </div>
+
+            <div class="input_ctrl">
+                <button class="btn select-files" onclick="select_click()">选择文件</button>
             </div>
 
             <h3>请为该次作业设置一个名字</h3>
@@ -48,6 +49,7 @@
             <div class="input_ctrl">
                 <button class="btn" onclick="upload_xhr2()">点击上传</button>
             </div>
+            
             <div class="input_ctrl">
                 <button class="btn">开始检测</button>
             </div>
@@ -55,7 +57,11 @@
         </div>
 
         <div class="result">
-            <h1>result</h1>
+            <h3>查询结果</h3>
+            <div class="input_ctrl">
+                <div class="result-info"></div>
+            </div>
+            
         </div>
 
     </div>
@@ -92,7 +98,7 @@
         var xhr = new XMLHttpRequest();//第一步    
         //定义表单变量    
         var files = document.getElementById('file').files; 
-        
+        console.log(files)
         var code_id = document.getElementById('code-id').value;
         if (files.length < 1) {
             alert("未选择文件");
@@ -109,7 +115,7 @@
         formData.append("code_id", code_id)    
         //追加文件数据    
         for(i = 0; i < files.length; i++){      
-            formData.append("file["+i+"]", file[i]); //++++++++++    
+            formData.append("file["+i+"]", files[i]); //++++++++++    
         }     
         //formData.append("file", file[0]); //++++++++++    
             
@@ -126,7 +132,7 @@
             }    
         };    
         //设置超时时间    
-        xhr.timeout = 10000;    
+        xhr.timeout = 100000;    
         xhr.ontimeout = function(event){    
     　　　　alert('请求超时！');    
     　　}     

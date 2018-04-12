@@ -72,11 +72,12 @@ html,body {
     position: relative;
     height: 550px;
     width: 500px;
-    margin: 0px;
-    display:inline-block;
-    left: 100px;
+    margin: 10px 20px;
+    /* display:inline-block; */
+    left: 80px;
     top: 5%;
     background-color: white;
+    float: left;
 }
 
 .btn {
@@ -105,7 +106,7 @@ html,body {
 }
 
 .show {
-    height:120px;
+    height:150px;
     overflow-y:auto;
     border:1px solid #114085;
     border-radius: 4px;
@@ -125,9 +126,22 @@ input[type="text"] {
 }
 
 .result {
+    text-align: center;
     position: relative;
-    left: 200px;
-    display:inline-block;
+    margin: 10px 20px;
+    left: 100px;
+    top: 5%;
+    height: 550px;
+    width: 500px;
+    /* display:inline-block; */
     background-color: white;
+    float: left;
+}
+
+.result-info {
+    height: 450px;
+    overflow-y:auto;
+    border:1px solid #114085;
+    border-radius: 4px;
 }
 
