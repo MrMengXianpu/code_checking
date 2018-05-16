@@ -6,9 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
-    <style>
-
-    </style>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
@@ -26,42 +23,56 @@
         </div>    
     </div>
     <div class="main">
-        <div class="abstract">
-            <h3>请上传需要查重的所有文件</h3>
-            <div class="input_ctrl" style="height:0px;margin:0px;">    
-                <input type="file" id="file" name="file" multiple="multiple" class="upload-files" style="opacity:0;height:0px;">
-            </div>
-            
-            <div class="input_ctrl">
-                <div class="show"></div>
-            </div>
+        <div class="main-part">
+            <div class="upload">
+                <h3>请上传需要查重的所有文件</h3>
 
-            <div class="input_ctrl">
-                <button class="btn select-files" onclick="select_click()">选择文件</button>
-            </div>
+                <div class="input_ctrl" style="height:0px;margin:0px;"> 
 
-            <h3>请为该次作业设置一个名字</h3>
-            
-            <div class="input_ctrl">
-                <input type="text" id="code-id" value="">
-            </div>
+                    <input type="file" id="file" name="file" 
+                    multiple="multiple" class="upload-files" 
+                    style="opacity:0;height:0px;">
 
-            <div class="input_ctrl">
-                <button class="btn" onclick="upload_xhr2()">点击上传</button>
+                </div>
+                
+                <div class="input_ctrl">
+                    <div class="show"></div>
+                </div>
+    
+                <div class="input_ctrl">
+                    <button class="btn select-files" onclick="select_click()">选择文件</button>
+                </div>
+    
+                <h3>请为该次作业设置一个名称</h3>
+                
+                <div class="input_ctrl">
+                    <input type="text" id="code-id" value="">
+                </div>
+    
+                <div class="input_ctrl">
+                    <button class="btn" onclick="upload_xhr2()">点击上传</button>
+                </div>
+                
+                <div class="input_ctrl">
+                    <button class="btn" onclick="start_check()">开始检测</button>
+                </div>               
             </div>
-            
-            <div class="input_ctrl">
-                <button class="btn">开始检测</button>
-            </div>
-            
         </div>
 
-        <div class="result">
-            <h3>查询结果</h3>
-            <div class="input_ctrl">
-                <div class="result-info"></div>
+
+        <div class="main-part">
+            <div class="result">
+                <h3>查询结果（显示结果为每个文件最大相似度）</h3>
+                <div class="input_ctrl">
+                    <div class="result-info">
+                        test_1.py : 0.8324213535<br>
+                        test_2.py : 0.2975930178<br>
+                        test_3.py : 0.6258211403<br>
+                        test_4.py : 0.8324213535<br>
+                    </div>
+                </div>
+                
             </div>
-            
         </div>
 
     </div>
@@ -78,13 +89,9 @@
             var info = "";
             var files = document.getElementById('file').files;
             for(i = 0; i < files.length; i++){      
-                info += files[i]['name'] + "\n";
+                info += (files[i]['name'] + "<br>");
             }
-            //var info = files[0]['name'] + "\n" + files[1]['name'];
-            //console.log(info);
-
-            var arrs=$(this).val().split('\\');
-            var filename=arrs[arrs.length-1];
+            
             $(".show").html(info);
         });
     });
@@ -128,7 +135,9 @@
             if ( xhr.readyState == 4 && xhr.status == 200 ) {
                 if (xhr.responseText == 'succ') {
                     alert('已成功上传所选文件，可继续上传或点击”开始检测“进行查重');
-                }                    
+                } else {
+                    alert('上传失败');
+                }                
             }    
         };    
         //设置超时时间    
@@ -137,4 +146,27 @@
     　　　　alert('请求超时！');    
     　　}     
     };
+
+    function start_check(){
+        console.log('start check')
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://127.0.0.1:8085/check');
+        xhr.send();
+        xhr.onreadystatechange = function(){ //第四步    
+            if ( xhr.readyState == 4 && xhr.status == 200 ) {
+                // if (xhr.responseText == 'done') {
+                //     alert('已检测完毕');
+                // }
+                var show_str = "";
+                console.log(typeof xhr.responseText);
+                var show_arr = xhr.responseText.slice(1, -2).split(",");
+                for (var i = 0; i < show_arr.length; i++){
+                    show_str += show_arr[i] + "<br>";
+                }
+                
+                $(".result-info").html(show_str);               
+            }    
+        };    
+
+    }
 </script>
